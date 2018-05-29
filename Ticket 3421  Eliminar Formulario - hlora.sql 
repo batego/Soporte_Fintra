@@ -1,0 +1,38 @@
+﻿select * from apicredit.pre_solicitudes_creditos  where numero_solicitud like '%121205%'
+
+-- create table MC_SA_121205 as
+select * from solicitud_aval where numero_solicitud = 121205
+delete from solicitud_aval where numero_solicitud = 121205
+
+-- create table MC_SN_121205 as
+select * from solicitud_negocio  where numero_solicitud = 121205
+-- delete from solicitud_negocio  where numero_solicitud = 121205
+
+
+--create table MC_121205 as 
+select * from solicitud_persona   where numero_solicitud = 121205 and identificacion = '1042423864'
+--delete from solicitud_persona   where numero_solicitud = 121205  and identificacion = '1042423864'
+select * from MC_7375761
+
+-- create table MC_SR_121205 as
+select * from solicitud_referencias where numero_solicitud = 121205
+-- delete from solicitud_referencias where numero_solicitud = 121205
+-- select * from MC_SR_7375761
+
+-- create table MC_SD_121205 as
+select * from solicitud_documentos   where numero_solicitud = 121205
+
+-- create table MC_SL_121205 as
+select * from solicitud_laboral    where numero_solicitud = 121205 
+-- delete from solicitud_laboral    where numero_solicitud = 121205 
+
+
+select * from solicitud_actividad_economica where numero_solicitud = 121205
+
+-- create table MC_Cu_121205 as
+select * from solicitud_cuentas where numero_solicitud = 121205
+-- delete from solicitud_cuentas where numero_solicitud = 121205
+
+-- create table MC_SH_121205 as
+select * from solicitud_hijos where numero_solicitud = 121205
+-- delete from solicitud_hijos where numero_solicitud = 121205

@@ -1,0 +1,1 @@
+﻿select * from apicredit.pre_solicitudes_creditos where identificacion = 32694241
