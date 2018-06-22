@@ -86,4 +86,11 @@ SELECT * FROM administrativo.fondo_pensiones order by reg_status
 --             FROM administrativo.fondo_pensiones
 --             order by id
 
-  
+
+
+ Archivos Modificados Netbeans
+-- admonrecursoshumanosAction.java
+-- admonrecursoshumanosDAO.java
+-- admonrecursoshumanosimpl.java
+-- admonrecursoshumanosDAO.xml
+-- mestroempleados.js

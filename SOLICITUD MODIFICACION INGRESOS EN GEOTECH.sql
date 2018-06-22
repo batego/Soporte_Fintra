@@ -1,0 +1,34 @@
+-- Buenas tardes,
+-- Boris, nesecito el favor que los ingresos relacionados a continuacion se les cambie el tercero y el nombre contablemente por 3210526 - WILINGTON CORZO MONCADA
+--IC067606	29/12/2015
+--IC069090	29/02/2016
+--IC070383	20/04/2016
+--IC070953	10/05/2016
+--IC072109	21/06/2016
+--IC072621	13/07/2016
+--IC077726	06/12/2016
+--IC079447	01/02/2017
+--IC078854	13/01/2017
+--IC081068	24/03/2017
+--IC083441	31/05/2017
+
+-- Esto ya que se debe pasar la informacion a Apoteosys y alla no permite el tercero placas inexixtentes.
+
+
+
+--select * from INGRESO where NUM_INGRESO in ('IC067606','IC069090','IC070383','IC070953','IC072109','IC072621','IC077726','IC079447','IC078854','IC081068','IC083441');
+--update INGRESO set codcli = 'CL02772' where NUM_INGRESO in ('IC067606','IC069090','IC070383','IC070953','IC072109','IC072621','IC077726','IC079447','IC078854','IC081068','IC083441');
+CL02772
+--select * from INGRESO_DETALLE where NUM_INGRESO in ('IC067606','IC069090','IC070383','IC070953','IC072109','IC072621','IC077726','IC079447','IC078854','IC081068','IC083441');
+
+
+select * from comprobante where numdoc in ('IC067606','IC069090','IC070383','IC070953','IC072109','IC072621','IC077726','IC079447','IC078854','IC081068','IC083441');
+--update COMPROBANTE set tercero = '3210526' where numdoc in ('IC067606','IC069090','IC070383','IC070953','IC072109','IC072621','IC077726','IC079447','IC078854','IC081068','IC083441');
+select * from COMPRODET where numdoc in ('IC067606','IC069090','IC070383','IC070953','IC072109','IC072621','IC077726','IC079447','IC078854','IC081068','IC083441');
+--UPDATE COMPRODET SET tercero = '3210526' where numdoc in ('IC067606','IC069090','IC070383','IC070953','IC072109','IC072621','IC077726','IC079447','IC078854','IC081068','IC083441');
+
+select * from nit where cedula = '3210526';
+
+select * from cliente where codcli = 'CL00725';
+
+select * from cliente where nit = '3210526';
