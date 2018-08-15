@@ -1,12 +1,3 @@
-﻿select * from opciones_menu_modulos where modulo='Recursos Humanos' AND reg_status='' AND ruta ilike '%Gestion%' AND usuario ilike '%dvale%';
-select * from opciones_menu_modulos where modulo='Recursos Humanos' AND reg_status='' AND ruta ilike '%Registro%' AND usuario ilike ?;
-select * from opciones_menu_modulos where modulo='Recursos Humanos' AND reg_status='' AND ruta ilike '%VistoBueno%' AND usuario ilike ?;
-
--- update  opciones_menu_modulos set usuario= usuario||','||'EFRANCO' where modulo='Recursos Humanos' AND reg_status='' AND ruta ilike '%Gestion%' 
--- update  opciones_menu_modulos set usuario= usuario||','||'CACOSTAH' where modulo='Recursos Humanos' AND reg_status='' AND ruta ilike '%Registro%' 
--- update  opciones_menu_modulos set usuario= usuario||','||'EFRANCO' where modulo='Recursos Humanos' AND reg_status='' AND ruta ilike '%VistoBueno%' 
-
-
 select * from negocios where cod_neg = 'FA38587' --17
 --update negocios set nit_tercero = '8901045309' where cod_neg = 'FA38587' --17
 

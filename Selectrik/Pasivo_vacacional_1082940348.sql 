@@ -1,0 +1,4 @@
+﻿create table tem.pasivo_vac_1082940348 as
+delete FROM administrativo.pasivo_vacacional where cc_empleado = '1082940348' and dias_disfrutados = 15
+
+
