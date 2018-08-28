@@ -1,0 +1,13 @@
+﻿-- UsuarioDao
+
+ if (createArguments[22].equals("true")) {          
+                st = new StringStatement(this.obtenerSQL(query3),true);
+                st.setString(1, createArguments[1]);
+                st.setString(2, createArguments[8]);
+                st.setString(3, createArguments[5]);
+                st.setString(4, createArguments[12]);
+                st.setString(5, passwordEncriptado);
+                queries.add(st.getSql());
+                st = null;                   
+           }  
+           

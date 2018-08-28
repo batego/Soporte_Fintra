@@ -1,0 +1,2 @@
+﻿select * from cliente where codcli = 'CS31693'	--'A.M.V. S.A - ASOCIADOS MARIN VALENCIA S.A' -- '890213074'
+update cliente set nomcli = 'CONJUNTO RESIDENCIAL OLIVENZA', nit = '900701417', digito_verificacion = '0'  where codcli = 'CS31693'
