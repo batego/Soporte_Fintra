@@ -1,0 +1,25 @@
+﻿select * from con.ingreso where num_ingreso = 'IC286330'
+-- update con.ingreso set reg_status = 'A' where num_ingreso = 'IC286330'
+select * from con.ingreso_detalle where num_ingreso = 'IC286330' and documento = 'R0035337'		--'R0035336','R0035337'		select 31918380.00 - 1377185.00 = 30541195.00
+-- update con.ingreso_detalle set reg_status = 'A' where num_ingreso = 'IC286330'
+
+select 853189.00 + 550669.00
+853189.00;'R0035511'
+550669.00;'R0035512'
+
+
+
+select * from con.comprobante  where numdoc = 'IC286330'
+-- update con.comprobante set reg_status = 'A' where numdoc = 'IC286330'
+select * from con.comprodet where numdoc = 'IC286330' 
+-- update con.comprodet set reg_status = 'A' where numdoc = 'IC286330' 
+
+
+select 41751855.00 - 550669.00
+select * from con.factura where documento = 'R0035512'
+-- update con.factura set valor_abono = 41201186.00, valor_saldo = 550669.00 ,valor_abonome = 41201186.00, valor_saldome = 550669.00 where documento = 'R0035512'  
+
+select * from con.factura_detalle  where documento = 'R0035336'  
+
+
+ 
