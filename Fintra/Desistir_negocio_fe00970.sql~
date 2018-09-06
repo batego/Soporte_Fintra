@@ -68,22 +68,11 @@ select * from ing_fenalco
 --delete from ing_fenalco
 where codneg in ('FE00970') and cod in ('CM500851200','IF172491000')
 
-create table tem.comp_CM500851200_IF172491000 as
-delete from con.comprobante where numdoc in ('CM500851200','IF172491000')
-
-create table tem.compd_CM500851200_IF172491000 as
-delete from con.comprodet where numdoc in ('CM500851200','IF172491000')
-
--------------------------------------------||-------------------------------------
 
 create table tem.dif_FE00681 as			--select * from tem.dif_FE00681
 select * from ing_fenalco
 --delete from ing_fenalco
 where codneg in ('FE00681') and cod in ('CM500746200','IF172417800')
 
-create table tem.compd_CM500746200_IF172417800 as
-delete from con.comprobante where numdoc in ('CM500746200','IF172417800')
 
-create table tem.comp_CM500746200_IF172417800 as
-delete from con.comprodet where numdoc in ('CM500746200','IF172417800')
 
