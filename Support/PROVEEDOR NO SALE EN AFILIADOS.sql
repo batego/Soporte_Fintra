@@ -1,0 +1,6 @@
+
+SELECT * FROM proveedor WHERE nit = '860035827';
+SELECT clasificacion,* FROM nit WHERE cedula in('860035827','860034594','900406150');
+
+SELECT * FROM proveedor WHERE nit = '860035827'; --0000000000
+SELECT * FROM proveedor WHERE nit = '860034594'; --00000L
