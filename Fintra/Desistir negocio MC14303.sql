@@ -73,7 +73,7 @@ where numdoc in ('MC14303')
 ---DIFERIDOS (DIFERIDOS)
 select * from ing_fenalco
 --delete from ing_fenalco
-where codneg in ('EG59289')
+where codneg in ('MC14303')
 
 
 
