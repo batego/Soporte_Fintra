@@ -1,0 +1,4 @@
+--se consulta el cliente 
+--se busca la placa en datosoper y de ahi se saca del campo movindi su valor 
+-- en la tabla dispositivo se busca por el campo indi y se actualiza el campo serial, 
+-- con el que el usuario proporciona.
