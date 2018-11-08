@@ -45,4 +45,24 @@ where numdoc in ('LB01296')
 CREATE TABLE tem.fen_LB01296 as
 select * from ing_fenalco
 --delete from ing_fenalco
-where codneg in ('LB01296')
+where codneg in ('LB01296') ORDER BY cuota;
+
+CREATE TABLE tem.LB01296_A AS 
+---update ing_fenalco SET reg_status = '' WHERE reg_status = 'A' AND codneg = 'LB01296' ORDER BY cuota;
+
+SELECT * FROM tem.lb01296_a;
+SELECT * FROM tem.fen_LB01296 ;
+
+CREATE TABLE tem.LB01296_cuota1 AS 
+SELECT * FROM ing_fenalco WHERE codneg = 'LB01296' AND  cuota = '1';
+
+--otra copia tem.fen_LB01296_2
+
+SELECT * FROM con.comprobante WHERE numdoc IN (SELECT cod FROM tem.lb01296_a);
+SELECT * FROM con.comprodet WHERE numdoc = 'LI000024782';
+
+
+
+
+
+

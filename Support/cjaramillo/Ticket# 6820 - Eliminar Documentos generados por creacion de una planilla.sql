@@ -1,4 +1,4 @@
-CREATE TABLE tem.planilla_cxp_0236395 AS
+CREATE TABLE tem.    AS
 SELECT * FROM fin.cxp_doc WHERE documento ='0236395';
 --DELETE FROM fin.cxp_doc WHERE documento ='0236395';
 
@@ -25,6 +25,13 @@ SELECT * FROM etes.manifiesto_carga WHERE planilla = '0236395';
 CREATE TABLE tem.planilla_mandesc_0236395 AS
 SELECT * FROM etes.manifiesto_descuentos WHERE planilla = '0236395';
 --DELETE FROM etes.manifiesto_descuentos WHERE planilla = '0236395';
+
+SELECT * FROM fin.cxp_items_doc WHERE documento ='EDS0000375';
+SELECT * FROM fin.cxp_doc WHERE documento ='EDS0000375';
+
+SELECT * FROM con.comprobante WHERE numdoc = 'EDS0000375';
+SELECT * FROM con.comprodet WHERE numdoc = 'EDS0000375';
+
 
 
 

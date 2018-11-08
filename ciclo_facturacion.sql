@@ -1,0 +1,1 @@
+SELECT * FROM con.ciclos_facturacion WHERE periodo = '201801';
