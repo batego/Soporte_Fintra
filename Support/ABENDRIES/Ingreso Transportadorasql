@@ -1,0 +1,20 @@
+-- Config Transportadora
+-- Agregar usuario a opciones_menu_modulos where modulo='transportadora' 
+--Ejemplo:
+select * 
+from opciones_menu_modulos where modulo='transportadora' 
+AND reg_status='' 
+AND usuario ilike '%mmuskus%' AND dstrct = 'FINV' order by orden;
+
+
+--Agregar usuario a ETES.usuarios_agencias
+-- ejemplo
+select * from ETES.usuarios_agencias
+select * from etes.transportadoras
+
+--hacer la relacion del sgte query
+SELECT ag.id, cod_agencia, nombre_agencia, ag.id_transportadora, trans.cod_transportadora,trans.idusuario as user_trans 
+from etes.usuarios_agencias us
+INNER JOIN etes.agencias ag ON ag.id = us.id_agencia
+INNER JOIN etes.transportadoras trans ON trans.id = ag.id_transportadora
+WHERE id_usuario = 'APACHON';
