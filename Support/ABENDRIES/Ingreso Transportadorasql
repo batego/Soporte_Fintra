@@ -9,8 +9,9 @@ AND usuario ilike '%mmuskus%' AND dstrct = 'FINV' order by orden;
 
 --Agregar usuario a ETES.usuarios_agencias
 -- ejemplo
-select * from ETES.usuarios_agencias
-select * from etes.transportadoras
+select * from ETES.usuarios_agencias;
+select * from etes.transportadoras;
+SELECT * FROM ETES.agencias ;
 
 --hacer la relacion del sgte query
 SELECT ag.id, cod_agencia, nombre_agencia, ag.id_transportadora, trans.cod_transportadora,trans.idusuario as user_trans 
@@ -18,3 +19,13 @@ from etes.usuarios_agencias us
 INNER JOIN etes.agencias ag ON ag.id = us.id_agencia
 INNER JOIN etes.transportadoras trans ON trans.id = ag.id_transportadora
 WHERE id_usuario = 'APACHON';
+
+INSERT INTO etes.agencias
+(id, reg_status, dstrct, id_transportadora, cod_agencia, nombre_agencia, cod_municipio, direccion, correo, creation_date, creation_user, last_update, user_update)
+VALUES(9, '', 'FINV', 6, 'AGE00001', 'BARRANQUILLA', '08001', '', '', '2018-10-17 16:04:19.000', 'BTERRAZA', '0099-01-01 00:00:00.000', '');
+
+
+INSERT INTO etes.usuarios_agencias
+(id, reg_status, dstrct, id_agencia, id_usuario, nombre_usuario, creation_date, creation_user, last_update, user_update)
+VALUES(7, '', 'FINV', 9, 'APACHON', 'APACHON', '2017-10-06 15:34:35.415', '', '0099-01-01 00:00:00.000', '');
+
