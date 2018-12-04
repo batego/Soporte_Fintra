@@ -1,0 +1,8 @@
+select * from egreso WHERE document_no = 'BC38';
+select * from egresodet WHERE document_no = 'BC38';
+
+SELECT * FROM FIN.cxp_doc WHERE documento = '206010023004';
+SELECT * FROM FIN.cxp_items_doc WHERE documento = '206010023004';
+
+
+select * from fin.credito_bancario_detalle where documento='206010023004';

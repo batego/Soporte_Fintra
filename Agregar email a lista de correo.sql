@@ -1,0 +1,1 @@
+SELECT descripcion, dato,* FROM tablagen WHERE table_type ILIKE '%send%' AND dato ILIKE '%mlopez%'
