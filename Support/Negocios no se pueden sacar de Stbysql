@@ -1,0 +1,40 @@
+SELECT 
+                get_nombp(n.nit_tercero) as afiliado,
+                case when get_nombc(cod_cli) is null then
+                sp.nombre else
+                get_nombc(cod_cli) end AS cliente,
+                cod_cli AS id_cliente,
+                n.cod_neg AS negocio,
+                nt.numero_solicitud,
+                vr_negocio,
+                vr_desembolso,           
+                fecha_negocio::date AS fecha_negocio,
+                CASE WHEN f_desem::date = '0099-01-01' THEN null ELSE f_desem::date END AS fecha_desembolso,  
+                ns.actividad as cod_actividad_anterior,
+                --CASE WHEN (nt.actividad='RAD') THEN 'REFERENCIACION' WHEN (nt.actividad='REF') THEN 'ANALISIS' ELSE ta.dato END  as actividad,   
+                ta.dato as actividad,
+                nt.usuario AS usuario_standby,
+                (SELECT max(fecha) AS fecha FROM negocios_trazabilidad WHERE cod_neg = nt.cod_neg AND concepto = 'STANDBY' AND comentarios != '')::date as fecha_standby,    
+                tu.dato as causal_standby,
+                tu.descripcion as dias_exp,
+                (SELECT ((negtraza.fecha::date +  (tu.descripcion::text||' days')::interval)::date-now()::date+(select count(*) from fin.dias_festivos where festivo = true AND fecha between negtraza.fecha::date AND now()::date))
+                    FROM (SELECT max(fecha) AS fecha FROM negocios_trazabilidad WHERE cod_neg = nt.cod_neg AND concepto = 'STANDBY' AND comentarios != '') negtraza) ||' días' as dias_restantes, 
+                nt.comentario_stby AS comentarios,
+                CASE WHEN pre.asesor is null THEN sa.asesor ELSE pre.asesor END AS asesor
+            From negocios n
+            inner join solicitud_aval sa on (n.cod_neg=sa.cod_neg)
+	    inner join solicitud_persona sp on (sa.numero_solicitud=sp.numero_solicitud and sp.tipo='S')
+	    left join (SELECT traza.cod_neg,numero_solicitud,usuario, fecha ,comentarios,causal,actividad,comentario_stby  FROM negocios_trazabilidad as traza 
+                            inner join  (select cod_neg, max(fecha) as mifecha from negocios_trazabilidad where concepto='STANDBY' group by cod_neg) tabla on (tabla.cod_neg=traza.cod_neg and tabla.mifecha=traza.fecha)
+                            where concepto='STANDBY' )nt ON nt.cod_neg = n.cod_neg 
+            LEFT JOIN tablagen tu ON (tu.table_type in ('CAUSACONCP','CAUSASTBY')  and nt.causal=tu.table_code)
+            LEFT JOIN tablagen ta ON (ta.table_type='ACTIVIDNEG' and nt.actividad=ta.table_code)
+	    inner join rel_unidadnegocio_convenios ruc on (ruc.id_convenio=n.id_convenio) 
+	    inner join unidad_negocio un on (un.id=ruc.id_unid_negocio)
+	    left join (SELECT ns1.cod_neg,ns1.actividad  FROM negocios_standby as ns1 
+                            inner join  (select cod_neg, max(fecha) as mifecha from negocios_standby WHERE actividad !='STBY' group by cod_neg) ns2 on (ns2.cod_neg=ns1.cod_neg and ns2.mifecha=ns1.fecha))ns on ns.cod_neg=n.cod_neg
+            LEFT JOIN apicredit.pre_solicitudes_creditos pre on pre.numero_solicitud=sa.numero_solicitud
+	    where n.actividad = 'STBY' AND estado_neg in ('P','V')  and negocio_rel= ''  and un.ref_4 != ''--and negocio_rel_seguro = '' and negocio_rel_gps = '' and  n.creation_date::date between ?::date and ?::date
+	    --and un.id= ?     
+	    AND n.cod_neg = 'FE03311'      
+            order by SUBSTRING(nt.fecha,0,20),fecha_negocio desc,f_desem desc;
