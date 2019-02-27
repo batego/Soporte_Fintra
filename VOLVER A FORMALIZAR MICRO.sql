@@ -9,6 +9,9 @@ SELECT numero_solicitud, estado_sol,* FROM solicitud_aval WHERE cod_neg = 'MC178
 --se actuaiza con el numero de la solicitud el campo de negocio
 SELECT * FROM detalle_poliza_negocio WHERE cod_neg = 'MC17812';--141696
 
+--anular la cxp en esta tabla
+SELECT * FROM administrativo.historico_deducciones_fianza 
+
 
 
  

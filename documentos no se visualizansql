@@ -1,0 +1,4 @@
+--Problema al ver archivos que son antiguos
+-- actualizar el campo categoria en 0
+SELECT * FROM archivos_multiservicios WHERE document = 'FE04379';
+
