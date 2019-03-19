@@ -8,9 +8,6 @@ SELECT * FROM  recibos_caja
 WHERE num_recibo::NUMERIC BETWEEN 33951 AND 339960;
 
 
-
-
-
 SELECT * FROM  recibos_caja WHERE num_recibo = 33950;
 
 

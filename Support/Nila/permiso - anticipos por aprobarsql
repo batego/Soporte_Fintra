@@ -1,0 +1,98 @@
+SELECT * FROM tablagen WHERE table_code IN('CAJARAMILL','NGRANADI');
+
+changenegociosfenalco,
+ver_cxp_nomina,
+factconformada,
+columnascarteraopav,
+prefacturar,
+fintra,
+fintramax,
+factview,
+changenegociosfenalco,
+delete_doc_cmc,
+ver_cxp_nominaer
+
+ SELECT   nits_propietario
+             FROM     usuarios
+             WHERE    UPPER(idusuario)  = UPPER('NGRANADI');
+
+ SELECT   payment_name
+             FROM     proveedor
+             WHERE    nit =  '802022016';
+             
+---------------------SQL_ANTICIPOS_POR_APROBAR-------------             
+SELECT
+                           a.id,                            
+                           a.reg_status,                            
+                           a.observacion_anulacion,                            
+                           a.dstrct    ,                    
+                           a.agency_id ,                    
+                           a.pla_owner ,                    
+                           a.planilla  ,                   
+                           a.supplier  ,                    
+                           a.proveedor_anticipo ,           
+                           a.concept_code ,                 
+                           a.vlr      ,                     
+                           a.vlr_for  ,                     
+                           a.currency ,                     
+                           SUBSTRING(a.creation_date,1,16) as fecha_anticipo,            
+                           SUBSTRING(a.fecha_envio_fintra,1,16) as fecha_envio_fintra,            
+                           a.aprobado,                      
+                           substr(a.fecha_autorizacion,1,16)   as fecha_autorizacion ,    
+                           a.user_autorizacion  ,           
+                           a.transferido,                   
+                           substr(a.fecha_transferencia,1,16)  as fecha_transferencia ,   
+                           a.banco_transferencia ,          
+                           a.cuenta_transferencia ,         
+                           a.tcta_transferencia ,           
+                           a.user_transferencia ,           
+                           a.banco,                         
+                           a.sucursal,                      
+                           a.nombre_cuenta,                 
+                           a.cuenta,                        
+                           a.tipo_cuenta,                   
+                           a.nit_cuenta,                    
+                           substr(a.fecha_migracion,1,16)  as fecha_migracion ,   
+                           a.user_migracion ,               
+                           a.factura_mims ,                 
+                           a.vlr_mims_tercero ,             
+                           a.vlr_mims_propietario,          
+                           a.estado_pago_tercero,           
+                           a.estado_desc_propietario,       
+                           substr(a.fecha_pago_tercero,1,16)      as fecha_pago_tercero ,       
+                           substr(a.fecha_desc_propietario,1,16)  as fecha_desc_propietario ,   
+                           a.cheque_pago_tercero ,          
+                           a.cheque_desc_propietario,       
+                           a.corrida_pago_tercero,          
+                           a.corrida_desc_propietario,      
+                           get_nombreagencia( substring(a.agency_id,1,2) ) as nombre_agencia,     
+                           b.payment_name                   as nombre_proveedor,  
+                           c.nombre                         as nombre_prpietario, 
+                           a.porcentaje,                   a.vlr_descuento,                
+                           a.vlr_neto,                     a.vlr_combancaria,              
+                           a.vlr_consignacion,             a.reanticipo,                  
+                           a.cedcon,                       a.transferencia,                
+                           a.liquidacion,                  coalesce(a.secuencia,0) as secuencia ,                    
+                           substring(calculo_dif_ant(a.creation_date,a.fecha_transferencia),1,5) as diferencia ,
+                           rango_anticipos(calculo_dif_ant(a.creation_date,a.fecha_transferencia)) AS rango,  
+                           a.creation_user              ,to_char(a.creation_date,'YYYY-MM-DD HH:MI:SS') as creation_date,
+                          case when coalesce(a.concept_code,'')='01' and coalesce(a.con_ant_tercero,'')='01' then 'EFECTIVO' else case when coalesce(a.concept_code,'')='01' and coalesce(a.con_ant_tercero,'')='02'
+                          then 'TRANSFERENCIA' else case when coalesce(a.concept_code,'')='50' then 'PRONTO PAGO' else 'ANTICIPO' end  end  end as descripcion
+                          ,case when (select periodo from con.comprobante where numdoc = a.numero_operacion and tipodoc = a.tipo_operacion) is null then 'NA' end as periodo_contabilizacion
+                          ,case when a.numero_operacion = '' then 'NA' end as docum_contable
+                   FROM
+                          fin.anticipos_pagos_terceros  a 
+                          inner join proveedor as b on (b.nit=a.proveedor_anticipo)
+			  inner join nit as c on (c.cedula =  a.pla_owner)
+                   WHERE
+                           a.dstrct              =  'FINV'
+                      AND  a.proveedor_anticipo  =  '802022016'
+                      AND  a.aprobado    = 'N'
+                      AND  a.transferido = 'N'
+                      AND a.concept_code != '10'
+                      AND a.reg_status=''
+                  ORDER BY     a.fecha_anticipo ASC;
+
+            --limit 30
+                               
+                  
