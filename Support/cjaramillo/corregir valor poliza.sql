@@ -1,21 +1,21 @@
-select valor_total_poliza, cod_neg,* from negocios where cod_neg IN ('MC18529',
-'MC18548',
-'MC18595',
-'MC18603',
-'MC18645',
-'MC18655',
-'MC18669',
-'MC18670',
-'MC18696',
-'MC18715',
-'MC18717',
-'MC18721',
-'MC18627',
-'MC18631',
-'MC18691',
-'MC18730') ORDER BY cod_neg;
+    select valor_total_poliza, cod_neg,* from negocios where cod_neg IN ('MC18529',
+    'MC18548',
+    'MC18595',
+    'MC18603',
+    'MC18645',
+    'MC18655',
+    'MC18669',
+    'MC18670',
+    'MC18696',
+    'MC18715',
+    'MC18717',
+    'MC18721',
+    'MC18627',
+    'MC18631',
+    'MC18691',
+    'MC18730') ORDER BY cod_neg;
 
-update negocios set valor_total_poliza = 273204  where cod_neg = 'MC18529';
+    update negocios set valor_total_poliza = 273204  where cod_neg = 'MC18529';
 update negocios set valor_total_poliza = 74910  where cod_neg = 'MC18548';
 update negocios set valor_total_poliza = 45330  where cod_neg = 'MC18595';
 update negocios set valor_total_poliza = 285840  where cod_neg = 'MC18603';
