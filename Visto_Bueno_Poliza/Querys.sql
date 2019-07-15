@@ -162,7 +162,8 @@ select sum(valor_saldo) from con.factura where negasoc = 'MC16829';
 
 
 
-
+select * from usuarios where idusuario = 'MMUSKUS';--C5KvqtPon9E=
+--cABRHtDTbnw=
 
 
             

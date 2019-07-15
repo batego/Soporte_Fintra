@@ -245,82 +245,172 @@ SELECT * FROM  etes.transferencia_anticipos_temp WHERE planilla IN ('6968330','6
 select cheque,* from fin.cxp_doc where documento IN ('6968330','6968329');
 select * from fin.cxp_items_doc where documento IN ('6968330');
 
-
-
-
 select last_update,cheque,* from fin.cxp_doc where documento='6968331';
-
-
 
 SELECT * FROM etes.generar_reporte_produccion_transportadora()            
 WHERE fecha_creacion_fintra::date between '2019-05-01'::date AND '2019-06-12'::date
 AND planilla = '6968329'
 ORDER BY ID, fecha_creacion_fintra;
 
-create table tem.tran_ant_6968329_6968330 as
-select * from etes.transferencias_anticipos where planilla in ('6968329','6968330') ;
-
-SELECT 
-						   anticipo.id,
-						   CASE WHEN anticipo.reg_status ='A' THEN 'ANULADO' END AS estado,
-						   novedades.descripcion AS obs_anulacion,
-						   prod_servicio.descripcion AS producto,
-						   agencias.nombre_agencia,
-						   conductor.cod_proveedor as nit_conductor,
-						   conductor.nombre as nombre_conductor,
-						   conductor.veto,
-						   conductor.veto_causal,
-						   propietario.cod_proveedor as nit_propietario,
-						   propietario.nombre as nombre_propietario,
-						   propietario.veto,
-						   propietario.veto_causal,
-						   vehiculo.placa,
-						   anticipo.planilla,
-						   to_char(anticipo.fecha_creacion_anticipo,'YYYY-MM-DD HH24:MI:SS')::TIMESTAMP as fecha_anticipo,
-						   to_char(anticipo.fecha_envio_fintra ,'YYYY-MM-DD HH24:MI:SS')::TIMESTAMP  as fecha_envio,
-						   to_char(anticipo.creation_date,'YYYY-MM-DD HH24:MI:SS')::TIMESTAMP  as fecha_creacion_fintra,
-						   'N'::TEXT AS reanticipo,
-						   anticipo.creation_user AS usuario_creacion,
-						   anticipo.aprobado,
-						   anticipo.transferido,
-						   transferencias.banco_transferencia,
-						   transferencias.cuenta_transferencia,
-						   transferencias.tipo_cuenta_transferencia ,
-						   CASE WHEN anticipo.transferido='S' THEN transferencias.banco END AS banco_conductor,
-						   CASE WHEN anticipo.transferido='S' THEN transferencias.no_cuenta END AS no_cuenta_conductor,
-						   CASE WHEN anticipo.transferido='S' THEN transferencias.tipo_cuenta END AS tipo_cuenta_conductor,
-						   CASE WHEN anticipo.transferido='S' THEN transferencias.nombre_titular_cuenta END AS nombre_cta_conductor,
-						   CASE WHEN anticipo.transferido='S' THEN transferencias.cedula_titular_cuenta END AS nit_cuenta_conductor,
-						   anticipo.valor_planilla,
-						   anticipo.valor_neto_anticipo,
-						   anticipo.valor_descuentos_fintra as total_dscto,
-						   anticipo.valor_desembolsar as valor_neto,
-						   coalesce(transferencias.valor_comision_bancaria,0.0) AS valor_comision,
-						   (anticipo.valor_desembolsar - coalesce(transferencias.valor_comision_bancaria,0.0)) AS valor_consignado,
-						   to_char(anticipo.fecha_transferencia,'YYYY-MM-DD HH24:MI:SS')::TIMESTAMP AS fecha_transferencia,
-						   anticipo.numero_egreso,
-						   anticipo.valor_egreso,
-						   agencias.id_transportadora,
-						   (SELECT razon_social FROM etes.transportadoras  WHERE id=agencias.id_transportadora) AS transportadora,
-						   anticipo.origen,
-						   anticipo.destino,						   
-						   anticipo.fecha_pago_fintra,
-						   anticipo.cxc_corrida as nro_corrida ,
-						   transferencias.id_transportadora,
-						   transferencias.id_manifiesto_carga,
-						   transferencias.planilla
-							FROM etes.manifiesto_carga AS anticipo
-							LEFT JOIN etes.novedades_manifiesto AS novedades ON (anticipo.id=novedades.id_manifiesto_carga AND novedades.id_novedad=3)
-							INNER JOIN etes.productos_servicios_transp AS prod_servicio ON (anticipo.id_proserv=prod_servicio.id )  
-							INNER JOIN etes.agencias AS agencias ON (anticipo.id_agencia=agencias.id )
-							INNER JOIN etes.conductor AS conductor ON (anticipo.id_conductor=conductor.id)
-							INNER JOIN etes.vehiculo AS vehiculo ON (anticipo.id_vehiculo=vehiculo.id)
-							INNER JOIN etes.propietario  AS propietario ON (vehiculo.id_propietario=propietario.id)
-							LEFT JOIN etes.transferencias_anticipos AS transferencias ON (transferencias.id_transportadora=agencias.id_transportadora 
-									AND transferencias.id_manifiesto_carga=anticipo.id AND anticipo.planilla=transferencias.planilla
-									AND transferencias.reg_status!='A')
-							WHERE anticipo.planilla='6968329'
-							ORDER BY anticipo.fecha_envio_fintra;
-						
-						
+create table tem.tran_ant_6968329_6968330 AS;
+select fecha_transferencia,* from etes.transferencias_anticipos where planilla in ('10287034','10287191','10287255','10287263','10287269','10287043','10287282','10287287');;		
 --------------------------------
+select * from etes.transferencias_anticipos WHERE planilla in ('10287034','10287191','10287255','10287263','10287269','10287043','10287282','10287287');
+select transferido,aprobado,fecha_transferencia,* from etes.manifiesto_carga WHERE planilla in ('10287034','10287191','10287255','10287263','10287269','10287043','10287282','10287287');
+
+SELECT  
+            cedula_propietario,
+            banco,
+            cuenta,
+            tipo_cuenta,
+            nombre_cuenta,
+            nit_cuenta,
+            egreso_item,
+            sum(valor_anticipo) as vlr,
+            sum(valor_consignacion) as vlr_consignacion 
+        FROM etes.transferencia_anticipos_temp 
+        WHERE planilla in ('10287034','10287191','10287255','10287263','10287269','10287043','10287282','10287287') AND egreso_item != ''
+        GROUP BY 
+        cedula_propietario,
+        banco,
+        cuenta,
+        tipo_cuenta,
+        nombre_cuenta,
+        nit_cuenta,
+        egreso_item;      
+
+SELECT * FROM usuarios WHERE idusuario = 'NGRANADI';--cABRHtDTbnw=		--U2ML75VlCtgsdhuc5Z4JHQ==
+
+
+
+
+
+--------------------------------
+SELECT cedula_propietario,
+            banco,
+            cuenta,
+            tipo_cuenta,
+            nombre_cuenta,
+            nit_cuenta,
+            egreso_item,
+            sum(valor_anticipo) as vlr,
+            sum(valor_consignacion) as vlr_consignacion  
+            FROM  etes.transferencia_anticipos_temp --TABLA DONDE SE GUARDAN LAS PLANILLAS QUE SE VAN A TRANSFERIR
+WHERE id_transportadora = 3 AND 
+creation_date::date = '2019-06-17' AND 
+planilla IN ('9017494_1',
+'10277788',
+'9017749',
+'9017752',
+'9017751',
+'9017753',
+'9017756',
+'9017757',
+'9017699_1',
+'9017698_1',
+'9017700_2',
+'9017702_1',
+'9017703_1',
+'9017704_1',
+'9017706_1',
+'9017710_1',
+'9017708_1',
+'9017712_1',
+'9017716_1',
+'9017714_1',
+'9017754',
+'9017755',
+'9017758',
+'9017759',
+'9017760',
+'9017709_1',
+'9017717_1',
+'9017732_1',
+'9017722_1',
+'9017726_1',
+'9017724_1',
+'9017707_1',
+'9017730_1',
+'9017715_1',
+'9017719_1',
+'9017721_1',
+'9017761')
+GROUP BY cedula_propietario,
+            banco,
+            cuenta,
+            tipo_cuenta,
+            nombre_cuenta,
+            nit_cuenta,
+            egreso_item;
+            
+           
+-----------------------------------------------------------------------------
+SELECT *
+FROM  etes.transferencia_anticipos_temp 
+WHERE id_transportadora = 3 AND 
+creation_date::date = '2019-06-17' AND 
+planilla IN ('9017494_1',
+'10277788',
+'9017749',
+'9017752',
+'9017751',
+'9017753',
+'9017756',
+'9017757',
+'9017699_1',
+'9017698_1',
+'9017700_2',
+'9017702_1',
+'9017703_1',
+'9017704_1',
+'9017706_1',
+'9017710_1',
+'9017708_1',
+'9017712_1',
+'9017716_1',
+'9017714_1',
+'9017754',
+'9017755',
+'9017758',
+'9017759',
+'9017760',
+'9017709_1',
+'9017717_1',
+'9017732_1',
+'9017722_1',
+'9017726_1',
+'9017724_1',
+'9017707_1',
+'9017730_1',
+'9017715_1',
+'9017719_1',
+'9017721_1',
+'9017761')
+
+-----------------------------------
+select * from solicitud_aval where cod_neg='FE05530';
+select * from solicitud_estudiante where numero_solicitud = '154660';
+select * from solicitud_persona where identificacion = '1143409926';
+
+-- update  opciones_menu_modulos set usuario= usuario||','||'JARRIETA' where modulo='Recursos Humanos' AND reg_status='' AND ruta ilike '%Registro%'  
+
+
+
+select estado_sol,* from apicredit.pre_solicitudes_creditos where numero_solicitud = '154713';
+select * from solicitud_aval where numero_solicitud = '154713';
+
+create table tem.NM14677_1_fact as
+select * from con.factura where ref1='FOMS14174-19';
+
+create table tem.NM14677_1_factdt as
+select * from con.factura_detalle where documento='NM14677_1';
+
+create table tem.NM14677_1_comp as
+select * from con.comprobante where numdoc='NM14677_1';
+
+create table tem.NM14677_1_compdt as
+select * from con.comprodet where numdoc='NM14677_1';
+
+
+
+select * from solicitud_persona where identificacion = '1113122576';
